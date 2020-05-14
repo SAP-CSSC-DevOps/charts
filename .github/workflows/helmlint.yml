@@ -1,0 +1,20 @@
+name: CI
+
+on: push
+
+jobs:
+  lint_helm_charts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code into workspace directory
+        uses: actions/checkout@v2
+
+      - name: helm lint action step
+        uses: ./.github/actions/helm-lint
+        id: helm
+
+      - name: Get the result output of bitnami/apache chart
+        run: echo "Test result of apache chart is ${{ steps.helm.outputs.output1 }}"
+
+      - name: Get the result output of bitnami/consul chart
+        run: echo "Test result of bitnami/consul chart is ${{ steps.helm.outputs.output2 }}"

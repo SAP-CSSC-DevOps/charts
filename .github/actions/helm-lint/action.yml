@@ -1,0 +1,10 @@
+name: 'helm lint'
+description: 'checks and maintainance'
+outputs:
+  output1: # id of output
+    description: 'output of testing bitnami/apache chart'
+  output2: # id of output
+    description: 'output of testing bitnami/consul chart'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
