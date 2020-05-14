@@ -1,23 +1,18 @@
 #!/bin/bash
+helm1=$(helm lint bitnami/apache | tail -1)
 
-helm lint bitnami/apache | tail -1
-
-if [ $? -eq 0 ]; then
-    helm1=$(helm lint bitnami/apache | tail -1)
-    echo "::set-output name=output1::$helm1"
-else
-    helm1=$(helm lint bitnami/apache | tail -1)
-    echo "::set-output name=output1::$helm1"
+if [ -z "$helm1" ]; then
+    echo "::set-output name=output1::failed"
     exit 1
+else
+    echo "::set-output name=output1::$helm1"
 fi
 
-helm lint bitnami/consul | tail -1
+helm2=$(helm lint bitnami/consul | tail -1)
 
-if [ $? -eq 0 ]; then
-    helm2=$(helm lint bitnami/consul | tail -1)
-    echo "::set-output name=output2::$helm2"
-else
-    helm2=$(helm lint bitnami/consul | tail -1)
-    echo "::set-output name=output2::$helm2"
+if [ -z "$helm2" ]; then
+    echo "::set-output name=output2::failed"
     exit 1
+else
+    echo "::set-output name=output2::$helm2"
 fi
